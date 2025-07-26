@@ -20,7 +20,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://ficrammanifur.github.io",
+        "https://ficrammanifur.github.io/ficram-portfolio",
         "http://localhost:3000",
         "http://localhost:8080",
         "http://127.0.0.1:3000",
