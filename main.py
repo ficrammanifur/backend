@@ -13,12 +13,19 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Add CORS middleware
+# Fix CORS - Allow specific origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with your domain
+    allow_origins=[
+        "https://ficrammanifur.github.io",
+        "http://localhost:3000",
+        "http://localhost:8000",
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:8000",
+        "*"  # For development only
+    ],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 
@@ -79,6 +86,7 @@ async def root():
         "message": "Portfolio Backend API - Ficram Manifur Farissa",
         "version": "1.0.0",
         "status": "running",
+        "cors_enabled": True,
         "endpoints": {
             "GET /api/messages": "Get all messages",
             "POST /api/messages": "Submit new message",
@@ -186,8 +194,14 @@ async def health_check():
     return {
         "status": "healthy",
         "timestamp": datetime.now().isoformat(),
-        "service": "Portfolio Backend API"
+        "service": "Portfolio Backend API",
+        "cors_enabled": True
     }
+
+# Handle preflight requests
+@app.options("/{full_path:path}")
+async def options_handler():
+    return {"message": "OK"}
 
 if __name__ == '__main__':
     import uvicorn
