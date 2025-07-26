@@ -7,6 +7,8 @@ from datetime import datetime
 import uuid
 from typing import List, Optional
 
+print("FastAPI app initialization started...")
+
 app = FastAPI(
     title="Portfolio Backend API",
     description="Backend API for portfolio website messages",
@@ -14,6 +16,7 @@ app = FastAPI(
 )
 
 # CORS Configuration - More specific and secure
+# Pastikan 'https://ficrammanifur.github.io' ada di daftar allow_origins
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -35,40 +38,21 @@ app.add_middleware(
 MESSAGES_FILE = 'messages.json'
 MAX_MESSAGES = 10
 
-# Pydantic models
-class MessageCreate(BaseModel):
-    fullName: str
-    email: EmailStr
-    position: str
-    message: str
-
-class MessageResponse(BaseModel):
-    id: str
-    fullName: str
-    email: str
-    position: str
-    message: str
-    timestamp: str
-    created_at: str
-
-class ApiResponse(BaseModel):
-    success: bool
-    message: Optional[str] = None
-    messages: Optional[List[MessageResponse]] = None
-    count: Optional[int] = None
-    data: Optional[MessageResponse] = None
-    error: Optional[str] = None
-
 def load_messages():
     """Load messages from JSON file"""
     if os.path.exists(MESSAGES_FILE):
         try:
             with open(MESSAGES_FILE, 'r', encoding='utf-8') as f:
                 data = json.load(f)
+                print(f"Loaded {len(data)} messages from {MESSAGES_FILE}")
                 return data if isinstance(data, list) else []
-        except Exception as e:
-            print(f"Error loading messages: {e}")
+        except json.JSONDecodeError:
+            print(f"Error decoding JSON from {MESSAGES_FILE}. File might be empty or corrupted. Returning empty list.")
             return []
+        except Exception as e:
+            print(f"Error loading messages from {MESSAGES_FILE}: {e}")
+            return []
+    print(f"{MESSAGES_FILE} not found. Returning empty list.")
     return []
 
 def save_messages(messages):
@@ -76,24 +60,28 @@ def save_messages(messages):
     try:
         with open(MESSAGES_FILE, 'w', encoding='utf-8') as f:
             json.dump(messages, f, ensure_ascii=False, indent=2)
-        print(f"Saved {len(messages)} messages to file")
+        print(f"Saved {len(messages)} messages to {MESSAGES_FILE}")
     except Exception as e:
-        print(f"Error saving messages: {e}")
+        print(f"Error saving messages to {MESSAGES_FILE}: {e}")
 
 def cleanup_old_messages(messages):
     """Keep only the latest MAX_MESSAGES"""
     if len(messages) > MAX_MESSAGES:
         messages.sort(key=lambda x: x.get('timestamp', ''), reverse=True)
-        return messages[:MAX_MESSAGES]
+        cleaned_messages = messages[:MAX_MESSAGES]
+        print(f"Cleaned up messages. {len(cleaned_messages)} messages remaining.")
+        return cleaned_messages
     return messages
 
 # Handle preflight requests explicitly
 @app.options("/{full_path:path}")
 async def options_handler():
+    print(f"OPTIONS request received for path: {full_path}")
     return {"message": "OK"}
 
 @app.get("/")
 async def root():
+    print("Root endpoint accessed.")
     return {
         "message": "Portfolio Backend API - Ficram Manifur Farissa",
         "version": "1.0.0",
@@ -112,9 +100,10 @@ async def root():
 @app.get("/api/messages")
 async def get_messages():
     """Get all messages"""
+    print("GET /api/messages endpoint accessed.")
     try:
         messages = load_messages()
-        print(f"Retrieved {len(messages)} messages")
+        print(f"Returning {len(messages)} messages.")
         return {
             "success": True,
             "messages": messages,
@@ -127,6 +116,7 @@ async def get_messages():
 @app.post("/api/messages")
 async def submit_message(message_data: MessageCreate):
     """Submit new message"""
+    print("POST /api/messages endpoint accessed.")
     try:
         # Load existing messages
         messages = load_messages()
@@ -166,6 +156,7 @@ async def submit_message(message_data: MessageCreate):
 @app.delete("/api/messages/{message_id}")
 async def delete_message(message_id: str):
     """Delete specific message"""
+    print(f"DELETE /api/messages/{message_id} endpoint accessed.")
     try:
         messages = load_messages()
         
@@ -192,6 +183,7 @@ async def delete_message(message_id: str):
 @app.post("/api/messages/cleanup")
 async def cleanup_messages():
     """Manual cleanup - keep only latest 5 messages"""
+    print("POST /api/messages/cleanup endpoint accessed.")
     try:
         messages = load_messages()
         
@@ -212,6 +204,7 @@ async def cleanup_messages():
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""
+    print("Health check endpoint accessed.")
     messages_count = len(load_messages())
     return {
         "status": "healthy",
@@ -225,6 +218,7 @@ async def health_check():
 @app.get("/test-cors")
 async def test_cors():
     """Test CORS endpoint"""
+    print("Test CORS endpoint accessed.")
     return {
         "cors_test": "success",
         "origin_allowed": True,
@@ -240,5 +234,6 @@ if __name__ == '__main__':
         print("Created empty messages.json file")
     
     port = int(os.environ.get('PORT', 8000))
-    print(f"Starting server on port {port}")
+    print(f"Starting Uvicorn server on host 0.0.0.0, port {port}")
     uvicorn.run("main:app", host='0.0.0.0', port=port, reload=False)
+    print("Uvicorn server stopped.")
