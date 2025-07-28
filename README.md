@@ -5,9 +5,11 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/last%20commit-today-brightgreen" />
-  <img src="https://img.shields.io/badge/c++-100%25-blue" />
+  <img src="https://img.shields.io/badge/python-100%25-blue" />
   <img src="https://img.shields.io/badge/languages-1-informational" />
+  <img src="https://img.shields.io/badge/framework-FastAPI-green" />
 </p>
+
 
 ## 🚀 Features
 
