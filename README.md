@@ -1,6 +1,13 @@
 # Portfolio Backend API
 
-Backend API untuk website portfolio Ficram Manifur Farissa dengan FastAPI.
+<h1 align="center">Portfolio Backend API Using Railway</h1>
+<p align="center"><em>Backend API untuk website portfolio Ficram Manifur Farissa dengan FastAPI</em></p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/last%20commit-today-brightgreen" />
+  <img src="https://img.shields.io/badge/c++-100%25-blue" />
+  <img src="https://img.shields.io/badge/languages-1-informational" />
+</p>
 
 ## 🚀 Features
 
@@ -29,17 +36,21 @@ Backend API untuk website portfolio Ficram Manifur Farissa dengan FastAPI.
 
 ## 🛠 Local Development
 
-\`\`\`bash
+```bash
 # Install dependencies
 pip install -r requirements.txt
+```
 
+```bash
 # Run development server
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
 
+```bash
 # Access API documentation
 # Swagger UI: http://localhost:8000/docs
 # ReDoc: http://localhost:8000/redoc
-\`\`\`
+```
 
 ## 🚀 Railway Deployment
 
@@ -106,4 +117,10 @@ https://ficrammanifur.github.io/ficram-portfolio
   </a>
 </p>
 
-<p align="centre"><a href="#esp32-mqtt-control-dashboard">⬆ Back to Top</a></p>
+---
+
+<div align="center">
+
+**⭐ Star this repository if you found it helpful!**
+
+<p align="centre"><a href="portfolio-backend-api">⬆ Back to Top</a></p>
