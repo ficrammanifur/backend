@@ -56,21 +56,21 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 ## 📝 Message Schema
 
-\`\`\`json
+```json
 {
   "fullName": "John Doe",
   "email": "john@example.com",
   "position": "Software Developer",
   "message": "Great portfolio!"
 }
-\`\`\`
+```
 
 ## 🔧 Configuration
 
 ### Procfile
-\`\`\`
+```
 web: uvicorn main:app --host 0.0.0.0 --port $PORT
-\`\`\`
+```
 
 ## 📊 Auto-Cleanup Features
 
@@ -81,9 +81,9 @@ web: uvicorn main:app --host 0.0.0.0 --port $PORT
 ## 🔍 Monitoring
 
 ### Health Check
-\`\`\`bash
+```bash
 curl https://your-app.railway.app/health
-\`\`\`
+```
 
 ### API Documentation
 - Swagger UI: `https://your-app.railway.app/docs`
@@ -92,9 +92,18 @@ curl https://your-app.railway.app/health
 ## 👨‍💻 Author
 
 **Ficram Manifur Farissa**
-- GitHub: [@ficrammanifur](https://github.com/ficrammanifur)
-- Portfolio: [Your Portfolio URL]
+```GitHub:
+https://github.com/ficrammanifur
+```
+```Portfolio: 
+https://ficrammanifur.github.io/ficram-portfolio
+```
 
-## 📄 License
+## 📝 License
+<p align="center">
+  <a href="https://github.com/ficrammanifur/ficrammanifur/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue" alt="License: MIT" />
+  </a>
+</p>
 
-This project is open source and available under the [MIT License](LICENSE).
+<p align="centre"><a href="#esp32-mqtt-control-dashboard">⬆ Back to Top</a></p>
