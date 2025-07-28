@@ -1,7 +1,9 @@
-# Portfolio Backend API
-
-<h1 align="center">Portfolio Backend API Using Railway</h1>
+<h1 align="center">
+  Portfolio Backend API Using Railway  
+  <img src="https://railway.app/brand/logo-light.png" alt="Railway Logo" height="30" style="vertical-align: middle; margin-left: 10px;" />
+</h1>
 <p align="center"><em>Backend API untuk website portfolio Ficram Manifur Farissa dengan FastAPI</em></p>
+
 
 <p align="center">
   <img src="https://img.shields.io/badge/last%20commit-today-brightgreen" />
@@ -125,4 +127,4 @@ https://ficrammanifur.github.io/ficram-portfolio
 
 **⭐ Star this repository if you found it helpful!**
 
-<p align="centre"><a href="portfolio-backend-api">⬆ Back to Top</a></p>
+<p align="centre"><a href="portfolio-backend-api-using-railway">⬆ Back to Top</a></p>
