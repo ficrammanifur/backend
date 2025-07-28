@@ -4,7 +4,6 @@
 </h1>
 <p align="center"><em>Backend API untuk website portfolio Ficram Manifur Farissa dengan FastAPI</em></p>
 
-
 <p align="center">
   <img src="https://img.shields.io/badge/last%20commit-today-brightgreen" />
   <img src="https://img.shields.io/badge/python-100%25-blue" />
